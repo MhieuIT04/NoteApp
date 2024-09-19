@@ -9,7 +9,12 @@
         <include .../>
         <exclude .../>
         -->
+        <include path="user_data/*"/>
+        <include path="settings/*"/>
 
+        <!-- Specify which items to exclude from the backup -->
+        <exclude path="cache/*"/>
+        <exclude path="temporary_files/*"/>
     </cloud-backup>
     <!--
     <device-transfer>
