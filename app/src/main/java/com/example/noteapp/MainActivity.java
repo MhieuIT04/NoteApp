@@ -8,7 +8,9 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 
 import android.app.AlarmManager;
@@ -22,7 +24,9 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.security.Permission;
 import java.util.Calendar;
+import java.util.List;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -38,14 +42,19 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         addNoteBtn = findViewById(R.id.add_note_btn);
         recyclerView = findViewById(R.id.recyler_view);
         menuBtn = findViewById(R.id.menu_btn);
+
+
+
 
         addNoteBtn.setOnClickListener((v)-> startActivity(new Intent(MainActivity.this,NoteDetailsActivity.class)) );
         menuBtn.setOnClickListener((v)->showMenu() );
@@ -54,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     void showMenu(){
         PopupMenu popupMenu  = new PopupMenu(MainActivity.this,menuBtn);
         popupMenu.getMenu().add("Logout");
@@ -61,14 +71,15 @@ public class MainActivity extends AppCompatActivity {
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                if(menuItem.getTitle()=="Logout"){
+                if (menuItem.getTitle() == "Logout") {
                     FirebaseAuth.getInstance().signOut();
-                    startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
                     finish();
                     return true;
                 }
                 return false;
             }
+
         });
 
     }
